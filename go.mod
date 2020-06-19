@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-module go.eth.moe/catbus-actuator-wakeonlan
+module go.eth.moe/catbus-wakeonlan
 
 go 1.14
 

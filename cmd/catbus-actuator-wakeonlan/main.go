@@ -9,10 +9,10 @@ import (
 	"flag"
 	"log"
 
-	"go.eth.moe/catbus-actuator-wakeonlan/config"
-	"go.eth.moe/catbus-actuator-wakeonlan/logger"
-	"go.eth.moe/catbus-actuator-wakeonlan/mqtt"
-	"go.eth.moe/catbus-actuator-wakeonlan/wakeonlan"
+	"go.eth.moe/catbus-wakeonlan/config"
+	"go.eth.moe/catbus-wakeonlan/logger"
+	"go.eth.moe/catbus-wakeonlan/mqtt"
+	"go.eth.moe/catbus-wakeonlan/wakeonlan"
 )
 
 var (

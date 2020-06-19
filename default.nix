@@ -6,9 +6,9 @@
 with pkgs;
 
 buildGoModule rec {
-  name = "catbus-actuator-wakeonlan-${version}";
+  name = "catbus-wakeonlan-${version}";
   version = "latest";
-  goPackagePath = "go.eth.moe/catbus-actuator-wakeonlan";
+  goPackagePath = "go.eth.moe/catbus-wakeonlan";
 
   modSha256 = "0nj0ny9692bqcw04fh74g8hqgfh3qc095fsq0y9cy677kp7l2q94";
 
