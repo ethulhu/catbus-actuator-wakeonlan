@@ -51,6 +51,10 @@ func main() {
 
 		for topic := range config.MACsByTopic {
 			token := broker.Subscribe(topic, mqtt.AtLeastOnce, func(_ mqtt.Client, msg mqtt.Message) {
+				if string(msg.Payload()) != "on" {
+					return
+				}
+
 				mac, ok := config.MACsByTopic[msg.Topic()]
 				if !ok {
 					return
