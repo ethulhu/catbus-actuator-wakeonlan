@@ -5,10 +5,12 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 
 	"go.eth.moe/catbus-actuator-wakeonlan/config"
+	"go.eth.moe/catbus-actuator-wakeonlan/logger"
 	"go.eth.moe/catbus-actuator-wakeonlan/mqtt"
 	"go.eth.moe/catbus-actuator-wakeonlan/wakeonlan"
 )
@@ -24,19 +26,28 @@ func main() {
 		log.Fatal("must set -config-path")
 	}
 
+	log, _ := logger.FromContext(context.Background())
+
 	config, err := config.ParseFile(*configPath)
 	if err != nil {
-		log.Fatalf("could not parse config file: %q", err)
+		log.AddField("config-path", *configPath)
+		log.WithError(err).Fatal("could not parse config file")
 	}
+
+	log.AddField("broker-uri", config.Broker)
 
 	brokerOptions := mqtt.NewClientOptions()
 	brokerOptions.AddBroker(config.Broker)
 	brokerOptions.SetAutoReconnect(true)
 	brokerOptions.SetConnectionLostHandler(func(_ mqtt.Client, err error) {
-		log.Printf("disconnected from MQTT broker %s: %v", config.Broker, err)
+		log := log
+		if err != nil {
+			log = log.WithError(err)
+		}
+		log.Error("disconnected from MQTT broker")
 	})
 	brokerOptions.SetOnConnectHandler(func(broker mqtt.Client) {
-		log.Printf("connected to MQTT broker %v", config.Broker)
+		log.Info("connected to MQTT broker")
 
 		for topic := range config.MACsByTopic {
 			token := broker.Subscribe(topic, mqtt.AtLeastOnce, func(_ mqtt.Client, msg mqtt.Message) {
@@ -44,20 +55,26 @@ func main() {
 				if !ok {
 					return
 				}
+
+				log.AddField("mac", mac)
+				log.AddField("topic", topic)
 				if err := wakeonlan.Wake(mac); err != nil {
-					log.Printf("could not send wake-on-lan: %v")
+					log.WithError(err).Error("could not send wake-on-lan packet")
+					return
 				}
+				log.Info("sent wake-on-lan packet")
 			})
 			if err := token.Error(); err != nil {
-				log.Printf("could not subscribe to %q: %v", topic, err)
-
+				log := log.WithError(err)
+				log.AddField("topic", topic)
+				log.Error("could not subscribe to MQTT topic")
 			}
 		}
 	})
 
 	broker := mqtt.NewClient(brokerOptions)
 	if token := broker.Connect(); token.Error() != nil {
-		log.Fatalf("could not connect to MQTT broker: %v", token.Error())
+		log.WithError(token.Error()).Fatal("could not connect to MQTT broker")
 	}
 
 	select {}
