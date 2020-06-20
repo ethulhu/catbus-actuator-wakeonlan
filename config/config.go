@@ -12,7 +12,7 @@ import (
 
 type (
 	Config struct {
-		Broker string
+		BrokerURI string
 
 		MACsByTopic map[string]net.HardwareAddr
 	}
@@ -46,7 +46,7 @@ func ParseFile(path string) (*Config, error) {
 
 func configFromConfig(raw config) *Config {
 	c := &Config{
-		Broker:      raw.MQTTBroker,
+		BrokerURI:   raw.MQTTBroker,
 		MACsByTopic: map[string]net.HardwareAddr{},
 	}
 
