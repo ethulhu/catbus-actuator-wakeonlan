@@ -127,6 +127,12 @@ func (c *Client) rebroadcastLater(topic string, retention Retention, payload []b
 	if timer := c.rebroadcastByTopic[topic]; timer != nil {
 		_ = timer.Stop()
 	}
+
+	if len(payload) == 0 {
+		// No payload => remove => don't rebroadcast.
+		return
+	}
+
 	c.rebroadcastByTopic[topic] = time.AfterFunc(c.rebroadcastDuration(), func() {
 		_ = c.Publish(topic, retention, payload)
 	})
