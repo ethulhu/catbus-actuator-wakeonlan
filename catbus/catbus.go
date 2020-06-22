@@ -75,7 +75,7 @@ func NewClient(brokerURI string, options ClientOptions) *Client {
 	}
 	for topic, payload := range options.RebroadcastDefaults {
 		// TODO: Allow users to set retention?
-		client.rebroadcastLater(topic, DontRetain, payload)
+		client.rebroadcastLater(topic, Retain, payload)
 	}
 
 	mqttOpts := mqtt.NewClientOptions()
