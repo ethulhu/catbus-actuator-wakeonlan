@@ -73,6 +73,12 @@ func main() {
 			}
 		},
 	}
+
+	catbusOptions.RebroadcastDefaults = map[string][]byte{}
+	for topic := range config.MACsByTopic {
+		catbusOptions.RebroadcastDefaults[topic] = []byte("off")
+	}
+
 	catbus := catbus.NewClient(config.BrokerURI, catbusOptions)
 
 	if err := catbus.Connect(); err != nil {
