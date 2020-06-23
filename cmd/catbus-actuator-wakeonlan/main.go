@@ -74,9 +74,9 @@ func main() {
 		},
 	}
 
-	catbusOptions.RebroadcastDefaults = map[string][]byte{}
+	catbusOptions.DefaultPayloadByTopic = map[string][]byte{}
 	for topic := range config.MACsByTopic {
-		catbusOptions.RebroadcastDefaults[topic] = []byte("off")
+		catbusOptions.DefaultPayloadByTopic[topic] = []byte("off")
 	}
 
 	catbus := catbus.NewClient(config.BrokerURI, catbusOptions)
