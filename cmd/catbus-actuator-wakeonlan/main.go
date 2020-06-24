@@ -37,22 +37,22 @@ func main() {
 	log.AddField("broker-uri", config.BrokerURI)
 
 	catbusOptions := catbus.ClientOptions{
-		DisconnectHandler: func(_ *catbus.Client, err error) {
+		DisconnectHandler: func(_ catbus.Client, err error) {
 			log := log
 			if err != nil {
 				log = log.WithError(err)
 			}
 			log.Error("disconnected from MQTT broker")
 		},
-		ConnectHandler: func(client *catbus.Client) {
+		ConnectHandler: func(client catbus.Client) {
 			log.Info("connected to MQTT broker")
 
 			for topic := range config.MACsByTopic {
-				err := client.Subscribe(topic, func(_ *catbus.Client, msg catbus.Message) {
-					if msg.Payload() != "on" {
+				err := client.Subscribe(topic, func(_ catbus.Client, msg catbus.Message) {
+					if msg.Payload != "on" {
 						return
 					}
-					mac, ok := config.MACsByTopic[msg.Topic()]
+					mac, ok := config.MACsByTopic[msg.Topic]
 					if !ok {
 						return
 					}
