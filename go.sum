@@ -12,6 +12,8 @@ github.com/stretchr/testify v1.2.2 h1:bSDNvY7ZPG5RlJ8otE/7V6gMiyenm9RtJ7IUVIAoJ1
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 go.eth.moe/catbus v0.0.1 h1:hODPBqJQpbAJ0+n6iBAQfuoAKCvnOFmwkEGpKKvnB8Y=
 go.eth.moe/catbus v0.0.1/go.mod h1:bVYTqNPbc4QCACFDMTKFv/5cFZWYDKPSamTP0/lbvW0=
+go.eth.moe/catbus v0.0.2 h1:gTbmKzhTTs4O+cuq6Wlmj8KhRQuybe/qtdD88SwlzmI=
+go.eth.moe/catbus v0.0.2/go.mod h1:bVYTqNPbc4QCACFDMTKFv/5cFZWYDKPSamTP0/lbvW0=
 go.eth.moe/logger v0.0.1 h1:ncY0iuVIljShMQtwy+77DvoHDlu6zVZ+7XIT7jyprrY=
 go.eth.moe/logger v0.0.1/go.mod h1:G20TP3ON2S95olTep+qsBSoTfouZeKPukk3Ow42q5OQ=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

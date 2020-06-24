@@ -49,7 +49,7 @@ func main() {
 
 			for topic := range config.MACsByTopic {
 				err := client.Subscribe(topic, func(_ *catbus.Client, msg catbus.Message) {
-					if string(msg.Payload()) != "on" {
+					if msg.Payload() != "on" {
 						return
 					}
 					mac, ok := config.MACsByTopic[msg.Topic()]
@@ -74,9 +74,9 @@ func main() {
 		},
 	}
 
-	catbusOptions.DefaultPayloadByTopic = map[string][]byte{}
+	catbusOptions.DefaultPayloadByTopic = map[string]string{}
 	for topic := range config.MACsByTopic {
-		catbusOptions.DefaultPayloadByTopic[topic] = []byte("off")
+		catbusOptions.DefaultPayloadByTopic[topic] = "off"
 	}
 
 	catbus := catbus.NewClient(config.BrokerURI, catbusOptions)
