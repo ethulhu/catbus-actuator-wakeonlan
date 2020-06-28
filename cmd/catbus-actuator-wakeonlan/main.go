@@ -81,6 +81,7 @@ func main() {
 
 	catbus := catbus.NewClient(config.BrokerURI, catbusOptions)
 
+	log.Info("connecting to MQTT broker")
 	if err := catbus.Connect(); err != nil {
 		log.WithError(err).Fatal("could not connect to MQTT broker")
 	}
