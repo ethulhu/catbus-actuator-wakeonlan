@@ -7,6 +7,6 @@ module go.eth.moe/catbus-wakeonlan
 go 1.14
 
 require (
-	go.eth.moe/catbus v0.0.4
+	go.eth.moe/catbus v0.0.5
 	go.eth.moe/logger v0.0.1
 )
