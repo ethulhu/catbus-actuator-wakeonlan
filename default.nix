@@ -10,7 +10,7 @@ buildGoModule rec {
   version = "latest";
   goPackagePath = "go.eth.moe/catbus-wakeonlan";
 
-  modSha256 = "1nqic73pm7zzp6mlklj8adrjzzhfhx9zk1wx9i4p0sfpblqj15ck";
+  modSha256 = "1gwm6zhxzc4nqmyhhn6p8cgvwj7dbcq1igafh0rsvhdfqngx3crd";
 
   src = ./.;
 
